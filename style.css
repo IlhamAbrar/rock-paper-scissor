@@ -1,0 +1,163 @@
+/* 1. Reset borders properly */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; 
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set the persistent background on the body */
+body {
+  background-image: url('image/pov_cafe.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; /* Keeps image sharp and filled */
+  
+  /* Shifts the entire image 150px DOWNWARDS off the bottom of the screen */
+  background-position: center calc(100% + 150px);
+}
+
+/* Fine-tune for Mobile Screens */
+/* @media (max-width: 768px) {
+  body {
+    background-size: 200%; /* Pushes the table even closer on narrow phone screens
+    background-position: bottom center;
+  }
+} */
+
+/* 2. Hero setup */
+.hero {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #00ff66;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.hero-btn{
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+.btn {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 9999px;
+  padding: 10px 24px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Laptop terminal setup */
+#laptop-terminal {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.laptop-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.laptop-img {
+  width: 85vw;
+  max-width: 1200px;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.7));
+  
+  /* Start hidden */
+  opacity: 0;
+  
+  /* Smooth 1-second fade transition */
+  transition: opacity 1s ease-in-out; 
+}
+
+/* Active class triggered by JavaScript */
+.laptop-img.visible {
+  opacity: 1;
+}
+
+/* Button styling */
+/*.strt-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #00ff66;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chl-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #00ff66;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+  */
+
+  /* #laptop-terminal {
+  width: 100%;
+  height: 100vh;
+  padding: 40px;
+  /* Made semi-transparent so cafe background shows through slightly 
+  background-color: rgba(13, 15, 24, 0.25); 
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
