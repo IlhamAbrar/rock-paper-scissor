@@ -11,7 +11,7 @@
 <body>
     <!-- HERO SECTION -->
     <section class="hero">
-        <h1>Hack the Cafe Network</h1>
+        <h1>Welcome</h1>
         <p>Select your difficulty and breach the terminal.</p>
         <div class="hero-btn">
             <button id="start-btn" class="btn">Start Hack</button>
@@ -20,13 +20,32 @@
     </section>
 
     <!-- TERMINAL SECTION -->
-    <main id="laptop-terminal">
-        <div class="laptop-container">
-            <img src="image/laptop.png" alt="Laptop Terminal" class="laptop-img">
+    <main id="terminal">
+        <div id="cyber-hud" class="hud-container">
+            <div class="hud-header">
+                <span class="hud-title">CYBER_EYE // OS_v4.02</span>
+                <span class="hud-status">STATUS: CONNECTED</span>
+            </div>
+            <div class="hud-body">
+                <p class="typewriter" data-text="> Initializing optics stream..."></p>
+                <p class="typewriter" data-text="> Cafe network detected. Target lock acquired."></p>
+                <p class="typewriter"
+                    data-text="> MATRIX PROTOCOL: ICE beats QUICKHACK | QUICKHACK beats DAEMON | DAEMON beats ICE"></p>
+
+                <!-- Command Output History -->
+                <div id="command-history"></div>
+
+                <!-- Input Interface -->
+                <div id="input-container" class="input-container hidden">
+                    <span class="prompt-symbol">> EXECUTOR:</span>
+                    <input type="text" id="command-input" placeholder="Awaiting further actions..." autocomplete="off"
+                        spellcheck="false" autofocus />
+                </div>
+            </div>
         </div>
     </main>
 
-    <script src="style.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

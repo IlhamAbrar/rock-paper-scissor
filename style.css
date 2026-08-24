@@ -1,4 +1,4 @@
-/* 1. Reset borders properly */
+/* Reset borders properly */
 * {
   margin: 0;
   padding: 0;
@@ -15,26 +15,22 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Set the persistent background on the body */
 body {
-  background-image: url('image/pov_cafe.jpg');
+  background-image: url('image/cafe3.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover; /* Keeps image sharp and filled */
-  
-  /* Shifts the entire image 150px DOWNWARDS off the bottom of the screen */
-  background-position: center calc(100% + 150px);
+  background-size: cover;
+  background-position: center calc(100% + 10px);
 }
 
-/* Fine-tune for Mobile Screens */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   body {
-    background-size: 200%; /* Pushes the table even closer on narrow phone screens
-    background-position: bottom center;
+    background-size: auto 100vh;
+    background-position: center bottom;
   }
-} */
+}
 
-/* 2. Hero setup */
+/* Hero setup */
 .hero {
   width: 100vw;
   height: 100vh;
@@ -88,44 +84,117 @@ body {
     transform: scale(0.95);
 }
 
-/* Laptop terminal setup */
-#laptop-terminal {
+/* Terminal section container */
+#terminal {
   width: 100vw;
   height: 100vh;
   position: relative;
   overflow: hidden;
 }
 
-.laptop-container {
+/* Floating Cyber HUD */
+.hud-container {
   position: absolute;
-  bottom: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.laptop-img {
+  transform: translate(-50%, -50%);
+  
   width: 85vw;
-  max-width: 1200px;
-  height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.7));
-  
-  /* Start hidden */
+  max-width: 800px;
+  height: 70vh;
+  max-height: 550px;
+
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(0, 255, 102, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.2),
+              inset 0 0 15px rgba(0, 255, 102, 0.08);
+
+  padding: 24px;
+  color: #00ff66;
+  font-family: 'Courier New', Courier, monospace;
+
   opacity: 0;
-  
-  /* Smooth 1-second fade transition */
-  transition: opacity 1s ease-in-out; 
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
-/* Active class triggered by JavaScript */
-.laptop-img.visible {
+.hud-container.visible {
   opacity: 1;
+}
+
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.hud-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+.typewriter, .log-line {
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* Persistent Blinking Cursor */
+.typewriter.active-line::after,
+.log-line.active-line::after {
+  content: '█';
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Command Prompt Input */
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.input-container.visible {
+  opacity: 1;
+}
+
+.prompt-symbol {
+  color: #00ff66;
+  font-weight: bold;
+}
+
+#command-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #00ff66;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  flex-grow: 1;
+  caret-color: #00ff66;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* Button styling */
