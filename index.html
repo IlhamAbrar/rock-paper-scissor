@@ -9,6 +9,11 @@
 </head>
 
 <body>
+    <!-- TOP OF SCREEN MONEY HUD -->
+    <div id="score-display" class="score-display">
+        CREDITS: $<span id="score-amount">0</span>
+    </div>
+
     <!-- HERO SECTION -->
     <section class="hero">
         <h1>Welcome</h1>
@@ -38,8 +43,8 @@
                 <!-- Input Interface -->
                 <div id="input-container" class="input-container hidden">
                     <span class="prompt-symbol">> EXECUTOR:</span>
-                    <input type="text" id="command-input" placeholder="Awaiting further actions..." autocomplete="off"
-                        spellcheck="false" autofocus />
+                    <textarea id="command-input" placeholder="Awaiting further actions..." rows="1" autocomplete="off"
+                        spellcheck="false" autofocus></textarea>
                 </div>
             </div>
         </div>

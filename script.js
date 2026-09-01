@@ -1,18 +1,31 @@
 const startBtn = document.getElementById('start-btn');
 const laptopTerminal = document.getElementById('terminal');
 const cyberHud = document.querySelector('.hud-container');
+const scoreDisplay = document.getElementById('score-display');
 const typewriterLines = document.querySelectorAll('.hud-body > .typewriter');
 
 const inputContainer = document.getElementById('input-container');
 const commandInput = document.getElementById('command-input');
 const commandHistory = document.getElementById('command-history');
 
+// Score and Game Loop Tracking
+const scoreAmountEl = document.getElementById('score-amount');
+const REWARD_AMOUNT = 500;
+
+// Glitch Durations
+const WIN_GLITCH_DURATION = 800;   // Smoother, shorter duration for wins
+const LOSE_GLITCH_DURATION = 1500; // Longer, intense duration for losses
+
+// Independent Screen Outline Durations (In Milliseconds)
+const WIN_OUTLINE_DURATION = 3000;  
+const LOSE_OUTLINE_DURATION = 3500; 
+
+let moneyScore = 0;
+let playerWins = 0;
+let playerLosses = 0;
+
 const choices = ['ice', 'quickhack', 'daemon'];
 
-// Win matrix:
-// ICE (Rock) beats QUICKHACK (Scissors)
-// QUICKHACK (Scissors) beats DAEMON (Paper)
-// DAEMON (Paper) beats ICE (Rock)
 const rules = {
   ice: 'quickhack',
   quickhack: 'daemon',
@@ -24,7 +37,6 @@ function typeLine(element, text, speed = 25) {
     let index = 0;
     element.textContent = '';
 
-    // Transfer active cursor to current line
     document.querySelectorAll('.active-line').forEach(el => el.classList.remove('active-line'));
     element.classList.add('active-line');
 
@@ -42,6 +54,8 @@ function typeLine(element, text, speed = 25) {
   });
 }
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function startTypewriterEffect() {
   for (const line of typewriterLines) {
     const textToType = line.getAttribute('data-text');
@@ -49,7 +63,6 @@ async function startTypewriterEffect() {
     await typeLine(line, textToType, 30);
   }
 
-  // Reveal command input box
   inputContainer.classList.remove('hidden');
   setTimeout(() => {
     inputContainer.classList.add('visible');
@@ -57,49 +70,104 @@ async function startTypewriterEffect() {
   }, 50);
 }
 
-// Clean and sanitize string input
 function sanitizeInput(rawInput) {
   return rawInput.toLowerCase().replace(/[^a-z]/g, '');
 }
 
 async function handleCommandSubmit(rawInput) {
-  // Disable input immediately so the user can't send extra commands
   commandInput.disabled = true;
 
   const sanitized = sanitizeInput(rawInput);
   
-  // Create output container for player's action
   const actionLine = document.createElement('p');
   actionLine.className = 'log-line';
   commandHistory.appendChild(actionLine);
 
-  // Check for invalid choice
   if (!choices.includes(sanitized)) {
     await typeLine(actionLine, `> '${rawInput}' : COMMAND NOT FOUND. VALID PAYLOADS: ICE | QUICKHACK | DAEMON`);
     
-    // Re-enable input and exit early for invalid command
     commandInput.disabled = false;
     commandInput.focus();
     commandHistory.scrollTop = commandHistory.scrollHeight;
     return;
   }
 
-  // Generate bot selection
   const botChoice = choices[Math.floor(Math.random() * choices.length)];
   let resultText = `> INPUT: ${sanitized.toUpperCase()} || SYSTEM: ${botChoice.toUpperCase()} -> `;
 
   if (sanitized === botChoice) {
-    resultText += 'COUNTER-PROTOCOL TIED. RETRYING...';
+    resultText += `COUNTER-PROTOCOL TIED. RETRYING... [W:${playerWins}/3 | L:${playerLosses}/3]`;
   } else if (rules[sanitized] === botChoice) {
-    resultText += 'ACCESS GRANTED. BREACH SUCCESSFUL!';
+    playerWins++;
+    resultText += `ACCESS GRANTED. BREACH SUCCESSFUL! [W:${playerWins}/3 | L:${playerLosses}/3]`;
+    actionLine.classList.add('log-win');
   } else {
-    resultText += 'TRACE DETECTED. BREACH FAILED!';
+    playerLosses++;
+    resultText += `TRACE DETECTED. BREACH FAILED! [W:${playerWins}/3 | L:${playerLosses}/3]`;
+    actionLine.classList.add('log-lose');
   }
 
-  // Wait for the main result text to finish typing
   await typeLine(actionLine, resultText);
 
-  // Re-enable input, restore focus, and scroll down
+  // Game Loop Win / Gameover Checks
+  if (playerWins >= 3) {
+    moneyScore += REWARD_AMOUNT;
+    scoreAmountEl.textContent = moneyScore;
+
+    // Trigger Glitch & Screen Edge Aura
+    document.body.classList.add('screen-win');
+    cyberHud.classList.add('glitch-win');
+    scoreDisplay.classList.add('glitch-win');
+
+    // Remove Screen Outline independently after WIN_OUTLINE_DURATION
+    setTimeout(() => {
+      document.body.classList.remove('screen-win');
+    }, WIN_OUTLINE_DURATION);
+
+    // Wait for Glitch Duration to finish
+    await wait(WIN_GLITCH_DURATION);
+
+    // Stop Glitch Effects
+    cyberHud.classList.remove('glitch-win');
+    scoreDisplay.classList.remove('glitch-win');
+
+    const winLine = document.createElement('p');
+    winLine.className = 'log-line log-win';
+    commandHistory.appendChild(winLine);
+    await typeLine(winLine, `>>> SYSTEM FULLY OVERRIDDEN! CREDITS REWARD: +$${REWARD_AMOUNT}. RESETTING COUNTERS...`);
+
+    playerWins = 0;
+    playerLosses = 0;
+  } else if (playerLosses >= 3) {
+    moneyScore -= REWARD_AMOUNT;
+    scoreAmountEl.textContent = moneyScore;
+
+    // Trigger Glitch & Screen Edge Aura
+    document.body.classList.add('screen-lose');
+    cyberHud.classList.add('glitch-lose');
+    scoreDisplay.classList.add('glitch-lose');
+
+    // Remove Screen Outline independently after LOSE_OUTLINE_DURATION
+    setTimeout(() => {
+      document.body.classList.remove('screen-lose');
+    }, LOSE_OUTLINE_DURATION);
+
+    // Wait for Glitch Duration to finish
+    await wait(LOSE_GLITCH_DURATION);
+
+    // Stop Glitch Effects
+    cyberHud.classList.remove('glitch-lose');
+    scoreDisplay.classList.remove('glitch-lose');
+
+    const loseLine = document.createElement('p');
+    loseLine.className = 'log-line log-lose';
+    commandHistory.appendChild(loseLine);
+    await typeLine(loseLine, `>>> SYSTEM LOCKDOWN IMMINENT! TRACE COMPLETE. PENALTY: -$${REWARD_AMOUNT}. RESETTING COUNTERS...`);
+
+    playerWins = 0;
+    playerLosses = 0;
+  }
+
   commandInput.disabled = false;
   commandInput.focus();
   commandHistory.scrollTop = commandHistory.scrollHeight;
