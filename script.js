@@ -124,7 +124,7 @@ async function startTypewriterEffect() {
     if (line.id === 'diff-status-line') {
       const msg = difficultyMessages[currentDifficulty];
       
-      // 1. Type the tag in standard terminal text (e.g., "[DIAGNOSTIC] ")
+      // 1. Type the tag in standard terminal text (in this case its "[DIAGNOSTIC] ")
       await typeLine(line, msg.prefix, TYPING_SPEED);
       
       // 2. Pause for network scanning delay
@@ -274,7 +274,7 @@ diffBtns.forEach(btn => {
   });
 });
 
-// Cyberpunk System Messages (Split for scanning delay)
+// Cyberpunk System Messages (Split for 'scanning' delay)
 const difficultyMessages = {
   easy: {
     prefix: "[DIAGNOSTIC] ",

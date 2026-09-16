@@ -37,8 +37,6 @@ body::after {
   border-width: 4px;
   border-color: transparent;
   box-shadow: inset 0 0 0px transparent, 0 0 0px transparent;
-  
-  /* 2-second smooth fade-out transition when win/lose classes are removed */
   transition: opacity 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
   box-sizing: border-box;
 }
@@ -50,7 +48,6 @@ body.screen-win::after {
   box-shadow: 
     inset 0 0 35px rgba(0, 255, 102, 0.6),
     0 0 20px rgba(0, 255, 102, 0.4);
-  /* Fast 0.1s enter transition so it triggers instantly with the glitch */
   transition: opacity 0.5s ease-in, border-color 0.5s ease-in, box-shadow 0.5s ease-in;
 }
 
@@ -62,7 +59,7 @@ body.screen-lose::after {
   animation: aura-pulse 0.2s infinite alternate;
 }
 
-/* Pulse box-shadow instead of opacity so opacity transitions cleanly */
+/* Pulse box-shadow */
 @keyframes aura-pulse {
   0% {
     box-shadow: 
@@ -157,7 +154,6 @@ body.screen-lose::after {
   font-size: 1rem;
 }
 
-/* Unique Active Difficulty Color Themes */
 /* EASY: Cyan / Aqua Glow */
 .btn.diff-btn.active-easy {
   background: rgba(0, 240, 255, 0.25);
@@ -389,13 +385,8 @@ body.screen-lose::after {
   caret-color: #ffffff;
   padding: 0;
   margin: 0;
-  
-  /* Flex shrink fix */
   min-width: 0;
   width: 100%;
-
-  /* REMOVED overflow: hidden and text-overflow: ellipsis from here 
-     so typed text can scroll horizontally without getting cut off */
 }
 
 #command-input::placeholder {
