@@ -17,10 +17,14 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <h1>Welcome</h1>
-        <p>Select your difficulty and breach the terminal.</p>
-        <div class="hero-btn">
-            <button id="start-btn" class="btn">Start Hack</button>
-            <button id="chill-btn" class="btn">Eh, just chillin'</button>
+        <p>SELECT THREAT LEVEL AND BREACH THE TERMINAL.</p>
+        <div class="hero-control-group">
+            <div class="hero-btn">
+                <button class="btn diff-btn" data-diff="easy">EASY</button>
+                <button class="btn diff-btn active-medium" data-diff="medium">MEDIUM</button>
+                <button class="btn diff-btn" data-diff="hard">HARD</button>
+            </div>
+            <button id="initiate-btn" class="btn initiate-btn">INITIATE</button>
         </div>
     </section>
 
@@ -34,8 +38,10 @@
             <div class="hud-body">
                 <p class="typewriter" data-text="> Initializing optics stream..."></p>
                 <p class="typewriter" data-text="> Cafe network detected. Target lock acquired."></p>
-                <p class="typewriter"
-                    data-text="> MATRIX PROTOCOL: ICE beats QUICKHACK | QUICKHACK beats DAEMON | DAEMON beats ICE"></p>
+                <p class="typewriter" id="diff-status-line" data-text=""></p>
+                <p class="typewriter" data-text="> ESTABLISHING ENCRYPTED TUNNEL [PORT: 8080]..."></p>
+                <p class="typewriter" data-text="> PROTOCOL BREACH IS ACTIVATED. EXECUTE PAYLOAD TO ENGAGE:"></p>
+                <p class="typewriter" data-text="PAYLOAD PROTOCOL: ICE > HACK | HACK > DAEMON | DAEMON > ICE"></p>
 
                 <!-- Command Output History -->
                 <div id="command-history"></div>
