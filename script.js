@@ -35,16 +35,16 @@ const choices = ['ice', 'hack', 'daemon'];
 
 // Losing targets for playerChoice lookup (botChoice beats playerChoice)
 const counterMoves = {
-  ice: 'hack',
-  hack: 'daemon',
-  daemon: 'ice'
+ ice: 'daemon',
+  hack: 'ice',
+  daemon: 'hack'
 };
 
 // Winning targets for playerChoice lookup (playerChoice beats botChoice)
 const winningMoves = {
-  ice: 'daemon',
-  hack: 'ice',
-  daemon: 'hack'
+  ice: 'hack',
+  hack: 'daemon',
+  daemon: 'ice'
 };
 
 function getBotChoice(playerChoice) {
