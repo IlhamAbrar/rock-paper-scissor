@@ -215,7 +215,7 @@ async function handleCommandSubmit(rawInput) {
     const winLine = document.createElement('p');
     winLine.className = 'log-line log-win';
     commandHistory.appendChild(winLine);
-    await typeLine(winLine, `>>> SYSTEM FULLY OVERRIDDEN! CREDITS REWARD: +$${REWARD_AMOUNT}. RESETTING COUNTERS...`);
+    await typeLine(winLine, `>>> SYSTEM FULLY OVERRIDDEN! SIPHONING FUNDS TO OFFSHORE NODE: +$${REWARD_AMOUNT}. FLUSHING TRACE...`);
 
     playerWins = 0;
     playerLosses = 0;
@@ -239,7 +239,7 @@ async function handleCommandSubmit(rawInput) {
     const loseLine = document.createElement('p');
     loseLine.className = 'log-line log-lose';
     commandHistory.appendChild(loseLine);
-    await typeLine(loseLine, `>>> SYSTEM LOCKDOWN IMMINENT! TRACE COMPLETE. PENALTY: -$${REWARD_AMOUNT}. RESETTING COUNTERS...`);
+    await typeLine(loseLine, `>>> CRITICAL ALERT: SYSTEM LOCKDOWN IMMINENT! LOCAL VAULT SEIZED: -$${REWARD_AMOUNT}. FLUSHING SYSTEM...`);
 
     playerWins = 0;
     playerLosses = 0;
@@ -282,11 +282,11 @@ const difficultyMessages = {
   },
   medium: {
     prefix: "[DIAGNOSTIC] ",
-    body: "MODERATE DEFENSIVE MESH DETECTED. EXPECT TACTICAL COUNTER-ROUTINES."
+    body: "REINFORCED DEFENSIVE MESH DETECTED. EXPECT TACTICAL COUNTER-ROUTINES."
   },
   hard: {
     prefix: "[DIAGNOSTIC] ",
-    body: "WARNING, BLACK-ICE SECURITY PROTOCOLS DETECTED. HIGH INTELLECT THREAT LEVEL. PROCEED WITH CAUTION."
+    body: "WARNING, COMPLEX SECURITY PROTOCOLS DETECTED. HIGH INTELLECT THREAT LEVEL. PROCEED WITH CAUTION."
   }
 };
 
